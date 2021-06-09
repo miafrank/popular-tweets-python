@@ -8,6 +8,7 @@ kafka-python = "*"
 confluent-kafka = "*"
 tweepy = "*"
 python-twitter = "*"
+pylint = "*"
 
 [dev-packages]
 

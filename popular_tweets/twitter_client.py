@@ -1,10 +1,15 @@
 import twitter
 from popular_tweets import twitter_env
 
-def client():
-  creds = twitter_env.get_creds()
-  api = twitter.Api(consumer_key=creds["twitter_consumer_key"],
-                    consumer_secret=creds["twitter_consumer_secret"],
-                    access_token_key=creds["twitter_access_key"],
-                    access_token_secret=creds["twitter_access_secret"])
-  return api
+
+class TwitterClient:
+    def __init__(self):
+        self.creds = twitter_env.get_creds()
+        self.api = twitter.Api(consumer_key=self.creds["twitter_consumer_key"],
+                               consumer_secret=self.creds["twitter_consumer_secret"],
+                               access_token_key=self.creds["twitter_access_key"],
+                               access_token_secret=self.creds["twitter_access_secret"])
+        return self.api
+
+    def search(self, term):
+        return self.api.GetSearch(term)
