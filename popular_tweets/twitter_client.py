@@ -9,7 +9,14 @@ class TwitterClient:
                                consumer_secret=self.creds["twitter_consumer_secret"],
                                access_token_key=self.creds["twitter_access_key"],
                                access_token_secret=self.creds["twitter_access_secret"])
-        return self.api
 
     def search(self, term):
         return self.api.GetSearch(term)
+
+    def parse_tweets(self, search_results):
+        results = {}
+        for tweets in search_results:
+            key = str(tweets.id)
+            value = {'user': tweets.user.screen_name, 'tweet': tweets.text, 'favorite_count': tweets.favorite_count}
+            results[key] = value
+        return results

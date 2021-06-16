@@ -7,8 +7,9 @@ name = "pypi"
 kafka-python = "*"
 confluent-kafka = "*"
 tweepy = "*"
-python-twitter = "*"
 pylint = "*"
+bson = "*"
+python-twitter = "*"
 
 [dev-packages]
 
