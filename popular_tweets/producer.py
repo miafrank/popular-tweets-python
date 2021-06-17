@@ -14,6 +14,7 @@ class KafkaProducer:
         self.logger = Logger(str(KafkaProducer.__class__))
 
     def send(self, topic_name, k: str, v: dict):
+        # TODO Add logs when msg sent successfully
         return self.producer.produce(topic=topic_name,
                                      key=k,
                                      value=json.dumps(v).encode('utf-8'),

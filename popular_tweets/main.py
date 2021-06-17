@@ -1,6 +1,3 @@
-# TODO: setup script to create topic and run producer and consumer
-from pprint import pprint
-
 from topic import Topic
 from producer import KafkaProducer
 from consumer import KafkaConsumer
@@ -23,10 +20,11 @@ def main():
     # the DoJ to join their conspiracy to overturn the election. Clearly the worst abuse… https://t.co/q8RgSY0tD4'
 
     twitter_producer = KafkaProducer()
-    # TODO: send twitter msgs to producer
     map(lambda k, v: twitter_producer.send(topic_name, k=k, v=v), parsed_results.items())
 
     # Create consumer and print/list tweets
+    twitter_consumer = KafkaConsumer()
+    twitter_consumer.poll()
     pass
 
 
