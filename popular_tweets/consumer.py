@@ -1,5 +1,6 @@
 from confluent_kafka import Consumer
 import socket
+from logger import Logger
 
 
 class KafkaConsumer:
@@ -8,10 +9,14 @@ class KafkaConsumer:
                        'group.id': 'tandem-dev-dish',
                        'client.id': socket.gethostname()}
         self.consumer = Consumer(self.config)
+        self.logger = Logger(str(KafkaConsumer.__class__))
 
     def subscribe(self, topic):
-        return self.consumer.subscribe([topic])
+        return self.consumer.subscribe([topic], on_assign=self.on_assignment)
+
+    def on_assignment(self, _, partitions):
+        self.logger.info(f"Assignment: {partitions}")
 
     def poll(self):
-        # TODO: check message that is returned - error messages are returned as None. Add timeout.
-        print(self.consumer.poll(timeout=10))
+        msgs = self.consumer.poll(timeout=20)
+        self.logger.warn("Consumer timed out polling for msgs") if msgs is None else print(msgs.value(payload=msgs))
