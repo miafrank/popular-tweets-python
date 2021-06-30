@@ -32,11 +32,9 @@ class KafkaConsumer:
                     self.logger.info('%% %s [%d] at offset %d with key %s:\n' %
                                      (msg.topic(), msg.partition(), msg.offset(),
                                       str(msg.key())))
-                    print(msg.value())
 
         except KeyboardInterrupt:
             self.logger.error('%% Aborted by user\n')
 
         finally:
-            # Close down consumer to commit final offsets.
             self.consumer.close()

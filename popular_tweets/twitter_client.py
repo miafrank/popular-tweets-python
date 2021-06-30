@@ -13,7 +13,8 @@ class TwitterClient:
     def search(self, term):
         return self.api.GetSearch(term)
 
-    def parse_tweets(self, search_results):
+    @staticmethod
+    def parse_tweets(search_results):
         results = {}
         for tweets in search_results:
             key = str(tweets.id)
